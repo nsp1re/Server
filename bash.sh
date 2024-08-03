@@ -92,17 +92,6 @@ if [[ $answer = y ]] ; then
   netplan apply
 fi
 
-read -p "Enable only incoming traffic from Iran's subnets [y/n]" answer
-if [[ $answer = y ]] ; then
-  bash <(curl -Ls https://raw.githubusercontent.com/nsp1re/Server/main/iranonlyaccess.sh)
-  echo "Notice : rerun this after each reboot"
-fi
-
-read -p "Server speedtest [y/n]" answer
-if [[ $answer = y ]] ; then
-wget -qO- bench.sh | bash
-fi
-
 read -p "Reboot [y/n]" answer
 if [[ $answer = y ]] ; then
   echo "Rebooting The Server !"
