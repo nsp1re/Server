@@ -28,27 +28,27 @@ fi
 read -p "Install XMPlus-NoRelay [y/n]" answer
 if [[ $answer = y ]] ; then
   bash <(curl -Ls https://raw.githubusercontent.com/XMPlusDev/XMPlus-NoRelay/install/install.sh)
-  echo "config.yml, press ENTER then Ctrl-D to quit"
+  echo "Paste config.yml, press ENTER then Ctrl-D to quit"
   > /etc/XMPlus/config.yml
   cat >> /etc/XMPlus/config.yml
-  echo "dns.json, press ENTER then Ctrl-D to quit"
+  echo "Paste dns.json, press ENTER then Ctrl-D to quit"
   > /etc/XMPlus/dns.json
   cat >> /etc/XMPlus/dns.json
-  echo "route.json, press ENTER then Ctrl-D to quit"
+  echo "Paste route.json, press ENTER then Ctrl-D to quit"
   > /etc/XMPlus/route.json
   cat >> /etc/XMPlus/route.json
-  echo "outbound.json, press ENTER then Ctrl-D to quit"
+  echo "Paste outbound.json, press ENTER then Ctrl-D to quit"
   > /etc/XMPlus/outbound.json
   cat >> /etc/XMPlus/outbound.json
-  echo "node1.crt, press ENTER then Ctrl-D to quit"
+  echo "Paste node1.crt, press ENTER then Ctrl-D to quit"
   cat >> /etc/XMPlus/node1.crt
-  echo "node1.key, press ENTER then Ctrl-D to quit"
+  echo "Paste node1.key, press ENTER then Ctrl-D to quit"
   cat >> /etc/XMPlus/node1.key
   read -p "Node 2 [y/n]" answer
   if [[ $answer = y ]] ; then
-    echo "node2.crt, press ENTER then Ctrl-D to quit"
+    echo "Paste node2.crt, press ENTER then Ctrl-D to quit"
     cat >> /etc/XMPlus/node2.crt
-    echo "node2.key, press ENTER then Ctrl-D to quit"
+    echo "Paste node2.key, press ENTER then Ctrl-D to quit"
     cat >> /etc/XMPlus/node2.key
   fi
   XMPlus restart
@@ -69,10 +69,10 @@ if [[ $answer = y ]] ; then
   curl -fsSL https://get.docker.com | sh
   git clone https://github.com/Gozargah/Marzban-node
   mkdir /var/lib/marzban-node
-  echo "docker-compose.yml, press ENTER then Ctrl-D to quit"
+  echo "Paste docker-compose.yml, press ENTER then Ctrl-D to quit"
   > ~/Marzban-node/docker-compose.yml
   cat >> ~/Marzban-node/docker-compose.yml
-  echo "ssl_client_cert.pem, press ENTER then Ctrl-D to quit"
+  echo "Paste ssl_client_cert.pem, press ENTER then Ctrl-D to quit"
   cat >> /var/lib/marzban-node/ssl_client_cert.pem
   cd ~/Marzban-node
   docker compose up -d
@@ -80,7 +80,7 @@ fi
 
 read -p "Hetzner's floating ip [y/n]" answer
 if [[ $answer = y ]] ; then
-  echo "floating ip: "
+  echo "Enter server's floating ip, press ENTER to quit"
   read floatingip
   echo "network:" >> /etc/netplan/60-floating-ip.yaml
   echo "   version: 2" >> /etc/netplan/60-floating-ip.yaml
@@ -94,6 +94,6 @@ fi
 
 read -p "Reboot [y/n]" answer
 if [[ $answer = y ]] ; then
-  echo "Rebooting The Server !"
+  echo "Rebooting the server !"
   reboot
 fi
