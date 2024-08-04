@@ -3,10 +3,10 @@ echo "Script started !"
 
 read -p "Network optimizations - System update [y/n]" answer
 if [[ $answer = y ]] ; then
-  if [ grep -q unlimited "/etc/profile" ]; then
+  if grep -q unlimited "/etc/profile"; then
     echo "Network is already optimized, skipping"
   fi
-  if [ ! grep -q unlimited "/etc/profile" ]; then
+  if ! grep -q unlimited "/etc/profile"; then
     > /etc/sysctl.conf
     echo "net.core.default_qdisc = fq_codel" >> /etc/sysctl.conf
     echo "net.ipv4.tcp_congestion_control = bbr" >> /etc/sysctl.conf
