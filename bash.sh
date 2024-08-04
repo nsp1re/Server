@@ -10,6 +10,21 @@ if [[ $answer = y ]] ; then
     > /etc/sysctl.conf
     echo "net.core.default_qdisc = fq_codel" >> /etc/sysctl.conf
     echo "net.ipv4.tcp_congestion_control = bbr" >> /etc/sysctl.conf
+    sed -i '/sysctl -p/d' /etc/profile
+    sed -i '/ulimit -c/d' /etc/profile
+    sed -i '/ulimit -d/d' /etc/profile
+    sed -i '/ulimit -f/d' /etc/profile
+    sed -i '/ulimit -i/d' /etc/profile
+    sed -i '/ulimit -l/d' /etc/profile
+    sed -i '/ulimit -m/d' /etc/profile
+    sed -i '/ulimit -n/d' /etc/profile
+    sed -i '/ulimit -q/d' /etc/profile
+    sed -i '/ulimit -s/d' /etc/profile
+    sed -i '/ulimit -t/d' /etc/profile
+    sed -i '/ulimit -u/d' /etc/profile
+    sed -i '/ulimit -v/d' /etc/profile
+    sed -i '/ulimit -x/d' /etc/profile
+    sed -i '/ulimit -s/d' /etc/profile
     echo "sysctl -p" >> /etc/profile
     echo "ulimit -c unlimited" >> /etc/profile
     echo "ulimit -d unlimited" >> /etc/profile
