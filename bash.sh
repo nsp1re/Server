@@ -3,10 +3,10 @@ echo "Script started !"
 
 read -p "Network optimizations - System update [y/n]" answer
 if [[ $answer = y ]] ; then
-  if grep -q unlimited "/etc/profile"; then
+  if [ -e "/opt/networkisoptimized" ]; then
     echo "Network is already optimized, skipping"
   fi
-  if ! grep -q unlimited "/etc/profile"; then
+  if [ ! -e "/opt/networkisoptimized" ]; then
     > /etc/sysctl.conf
     echo "net.core.default_qdisc = fq_codel" >> /etc/sysctl.conf
     echo "net.ipv4.tcp_congestion_control = bbr" >> /etc/sysctl.conf
@@ -25,6 +25,7 @@ if [[ $answer = y ]] ; then
     echo "ulimit -u unlimited" >> /etc/profile
     echo "ulimit -v unlimited" >> /etc/profile
     echo "ulimit -x unlimited" >> /etc/profile
+    > /opt/networkisoptimized
   fi
   apt update -y
   apt upgrade -y
