@@ -4,7 +4,7 @@ echo "Script started !"
 read -p "Network optimizations - System update [y/n]" answer
 if [[ $answer = y ]] ; then
   if [ grep -q unlimited "/etc/profile" ]; then
-    echo "Network already optimized, skipping"
+    echo "Network is already optimized, skipping"
   fi
   if [ ! grep -q unlimited "/etc/profile" ]; then
     > /etc/sysctl.conf
@@ -33,7 +33,7 @@ fi
 read -p "Install XMPlus-NoRelay [y/n]" answer
 if [[ $answer = y ]] ; then
   if [ -d "/etc/XMPlus/" ]; then
-    echo "XMPlus-NoRelay already installed, skipping"
+    echo "XMPlus-NoRelay is already installed, skipping"
   fi
   if [ ! -d "/etc/XMPlus/" ]; then
     bash <(curl -Ls https://raw.githubusercontent.com/XMPlusDev/XMPlus-NoRelay/install/install.sh)
@@ -71,7 +71,7 @@ fi
 read -p "Install Marzban [y/n]" answer
 if [[ $answer = y ]] ; then
   if [ -d "/opt/marzban/" ]; then
-    echo "Marzban already installed, skipping"
+    echo "Marzban is already installed, skipping"
   fi
   if [ ! -d "/opt/marzban/" ]; then
     bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install
@@ -90,7 +90,7 @@ fi
 read -p "Install Marzban-Node [y/n]" answer
 if [[ $answer = y ]] ; then
   if [ -d "~/Marzban-node/" ]; then
-    echo "Marzban-Node already installed, skipping"
+    echo "Marzban-Node is already installed, skipping"
   fi
   if [ ! -d "~/Marzban-node/" ]; then
     apt install -y curl socat git
