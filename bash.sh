@@ -105,10 +105,10 @@ fi
 
 read -p "Install Marzban-Node [y/n]" answer
 if [[ $answer = y ]] ; then
-  if [ -d "~/Marzban-node/" ]; then
+  if [ -d "/var/lib/marzban-node/" ]; then
     echo "Marzban-Node is already installed, skipping"
   fi
-  if [ ! -d "~/Marzban-node/" ]; then
+  if [ ! -d "/var/lib/marzban-node/" ]; then
     apt install -y curl socat git
     curl -fsSL https://get.docker.com | sh
     git clone https://github.com/Gozargah/Marzban-node
