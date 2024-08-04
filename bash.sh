@@ -1,7 +1,7 @@
 printf '\033c'
-echo "Script Started ! Ubuntu 24.04 ONLY"
+echo "Script started !"
 
-read -p "BBR - Update [y/n]" answer
+read -p "Network optimizations - System update [y/n]" answer
 if [[ $answer = y ]] ; then
   > /etc/sysctl.conf
   echo "net.core.default_qdisc = fq_codel" >> /etc/sysctl.conf
@@ -28,27 +28,31 @@ fi
 read -p "Install XMPlus-NoRelay [y/n]" answer
 if [[ $answer = y ]] ; then
   bash <(curl -Ls https://raw.githubusercontent.com/XMPlusDev/XMPlus-NoRelay/install/install.sh)
-  echo "Paste config.yml, press ENTER then Ctrl-D to quit"
+  echo "Paste your config.yml, press ENTER then Ctrl-D to save"
   > /etc/XMPlus/config.yml
   cat >> /etc/XMPlus/config.yml
-  echo "Paste dns.json, press ENTER then Ctrl-D to quit"
+  echo "Paste your dns.json, press ENTER then Ctrl-D to save"
   > /etc/XMPlus/dns.json
   cat >> /etc/XMPlus/dns.json
-  echo "Paste route.json, press ENTER then Ctrl-D to quit"
+  echo "Paste your route.json, press ENTER then Ctrl-D to save"
   > /etc/XMPlus/route.json
   cat >> /etc/XMPlus/route.json
-  echo "Paste outbound.json, press ENTER then Ctrl-D to quit"
+  echo "Paste your outbound.json, press ENTER then Ctrl-D to save"
   > /etc/XMPlus/outbound.json
   cat >> /etc/XMPlus/outbound.json
-  echo "Paste node1.crt, press ENTER then Ctrl-D to quit"
+  echo "Paste your node1.crt, press ENTER then Ctrl-D to save"
+  > /etc/XMPlus/node1.crt
   cat >> /etc/XMPlus/node1.crt
-  echo "Paste node1.key, press ENTER then Ctrl-D to quit"
+  echo "Paste your node1.key, press ENTER then Ctrl-D to save"
+  > /etc/XMPlus/node1.key
   cat >> /etc/XMPlus/node1.key
   read -p "Node 2 [y/n]" answer
   if [[ $answer = y ]] ; then
-    echo "Paste node2.crt, press ENTER then Ctrl-D to quit"
+    echo "Paste your node2.crt, press ENTER then Ctrl-D to save"
+    > /etc/XMPlus/node2.crt
     cat >> /etc/XMPlus/node2.crt
-    echo "Paste node2.key, press ENTER then Ctrl-D to quit"
+    echo "Paste your node2.key, press ENTER then Ctrl-D to save"
+    > /etc/XMPlus/node2.key
     cat >> /etc/XMPlus/node2.key
   fi
   XMPlus restart
@@ -56,10 +60,20 @@ fi
 
 read -p "Install Marzban [y/n]" answer
 if [[ $answer = y ]] ; then
-  bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install
-  read -p " Create a sudo admin [y/n]" answer
+  if [ -d "/opt/marzban/" ]; then
+    echo "Marzban already installed, skipping"
+  fi
+  if [ ! -d "/opt/marzban/" ]; then
+    bash -c "$(curl -sL https://github.com/Gozargah/Marzban-scripts/raw/master/marzban.sh)" @ install
+  fi
+  read -p "Create a sudo admin [y/n]" answer
   if [[ $answer = y ]] ; then
     marzban cli admin create --sudo
+  fi
+  read -p "Edit /opt/marzban/.env [y/n]" answer
+  if [[ $answer = y ]] ; then
+    nano /opt/marzban/.env
+    marzban restart -n
   fi
 fi
 
@@ -69,18 +83,18 @@ if [[ $answer = y ]] ; then
   curl -fsSL https://get.docker.com | sh
   git clone https://github.com/Gozargah/Marzban-node
   mkdir /var/lib/marzban-node
-  echo "Paste docker-compose.yml, press ENTER then Ctrl-D to quit"
+  echo "Paste your docker-compose.yml, press ENTER then Ctrl-D to save"
   > ~/Marzban-node/docker-compose.yml
   cat >> ~/Marzban-node/docker-compose.yml
-  echo "Paste ssl_client_cert.pem, press ENTER then Ctrl-D to quit"
+  echo "Paste your ssl_client_cert.pem, press ENTER then Ctrl-D to save"
   cat >> /var/lib/marzban-node/ssl_client_cert.pem
   cd ~/Marzban-node
   docker compose up -d
 fi
 
-read -p "Hetzner's floating ip [y/n]" answer
+read -p "Add hetzner's floating ip [y/n]" answer
 if [[ $answer = y ]] ; then
-  echo "Enter server's floating ip, press ENTER to quit"
+  echo "Paste your server's floating ip, press ENTER to save"
   read floatingip
   echo "network:" >> /etc/netplan/60-floating-ip.yaml
   echo "   version: 2" >> /etc/netplan/60-floating-ip.yaml
